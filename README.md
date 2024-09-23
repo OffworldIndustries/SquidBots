@@ -47,7 +47,7 @@ And when testing in editor, there’s lots of engine debug systems running in th
 
 For bots to move around, SquidBots requires the gameplay layer to have a navmesh. Due to an engine bug, the navmesh must be generated in the gameplay layer, not in the Geo Level (which annoyingly means duplicate navmeshes across layers). Hopefully this will be fixed in Squad in the future, were we to add navmeshes to all the vanilla geo levels.
 
-To build a navmesh, drag-and-drop a NavMeshBoundsVolume into your world.
+To build a navmesh, drag-and-drop a `NavMeshBoundsVolume` into your world.
 
 ![NavMeshBoundsVolume](https://github.com/user-attachments/assets/092901f9-9a60-4f05-a8d7-353b2ee21e8d)
 
