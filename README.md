@@ -58,7 +58,7 @@ You can then scale your `NavMeshBoundsVolume` to the size of your playspace.
 ![NavMeshBounds In World](https://github.com/user-attachments/assets/8920274b-eaf9-4a01-9f6c-a7414d0911f0)
 
 Bots are currently unaffected by Squad Map boundaries, so make sure to only have this cover the area you want bots to run around in.  
-With editor default settings, the navmesh should then be automatically generated. For more manual control of this, you can disable `Update Navigation Automatically` in the editor preferences. To then manually generate the navmesh, type `RebuildNavigation` in the editor console (\~ key).
+With editor default settings, the navmesh should then be automatically generated. For more manual control of this, you can disable `Update Navigation Automatically` in the editor preferences. To then manually generate the navmesh, type `RebuildNavigation` in the editor console (`~` key).
 
 ![UpdateNavigationAutomatically](https://github.com/user-attachments/assets/121a5eff-e85d-41ed-9cac-b089e17dda03)
 
@@ -80,11 +80,11 @@ Squad has project defaults defined for its navmeshes, tuned for the best results
 
 ![RecastNavMesh](https://github.com/user-attachments/assets/4fee79be-e6c5-46d2-9f19-8a4d3a42fcba)
 
-You can also modify these in the ProjectSettings, but note that these apply globally, and for modders will be wiped whenever the SDK updates.
+You can also modify these in the Project Settings, but note that these apply globally, and for modders will be wiped whenever the SDK updates.
 
 ![NavigationMeshSettings](https://github.com/user-attachments/assets/c9a7f1c8-61fd-4d2f-a2b8-a30e60e11bed)
 
-There are WorldSettings related to AI (`Enable AISystem`, `NavigationSystemConfig`, however they are overridden to use Squad’s defaults, unless `Enable Custom Navigation System Config` is enabled. So I would recommend not touching this.  
+There are WorldSettings related to AI (`Enable AISystem`, `NavigationSystemConfig`), however they are overridden to use Squad’s defaults, unless `Enable Custom Navigation System Config` is enabled. So I would recommend not touching this.  
 
 ![WorldSettings](https://github.com/user-attachments/assets/20d0b5c3-44a1-4b97-be22-a6296c002876)
 
@@ -92,7 +92,7 @@ There are WorldSettings related to AI (`Enable AISystem`, `NavigationSystemConfi
 
 ### Your Navmesh isn’t showing up?
 
-Oftentimes you might need to reload your world, or potentially restart your editor. Sometimes your navmesh can be entirely corrupted, so you may need to delete your existing `RecastNavMesh_Default`, then force `RebuildNavigatio`n again. Sometimes that doesn't even work, so you may need to move your `NavMeshBoundsVolume`, or delete and replace your `NavMeshBoundsVolume`.
+Oftentimes you might need to reload your world, or potentially restart your editor. Sometimes your navmesh can be entirely corrupted, so you may need to delete your existing `RecastNavMesh_Default`, then force `RebuildNavigation` again. Sometimes that doesn't even work, so you may need to move your `NavMeshBoundsVolume`, or delete and replace your `NavMeshBoundsVolume`.
 
 ### Your Navmesh isn’t generating on the landscape?
 
@@ -102,7 +102,7 @@ Ensure that `Used for Navigation` is enabled on the landscape.
 
 ## Team Restriction Zones
 
-Areas of the navmesh can be marked as restricted to a team. Placing a `NavModifierVolume` in the world, or adding a `NavModifier` component to an existing actor, you can use the `Team1RestrictedZone` or `Team2RestrictedZone`. The restriction zones work that only Bots with Team X can use that section of the navmesh for pathing. (Red \= Team 1, Blue \= Team 2). In vanilla Squad, the `Gameplay\_RestrictedTeamZon`e used for seeding already has this navmodifier, so seeding layers restrict bots from entering the enemy team’s restricted zone.
+Areas of the navmesh can be marked as restricted to a team. Placing a `NavModifierVolume` in the world, or adding a `NavModifier` component to an existing actor, you can use the `Team1RestrictedZone` or `Team2RestrictedZone`. The restriction zones work that only Bots with Team X can use that section of the navmesh for pathing. (Red \= Team 1, Blue \= Team 2). In vanilla Squad, the `Gameplay_RestrictedTeamZone` used for seeding already has this navmodifier, so seeding layers restrict bots from entering the enemy team’s restricted zone.
 
 ![RestrictionZones](https://github.com/user-attachments/assets/357bb426-9097-4a0e-9fa5-8ede7400e446)
 
@@ -112,22 +112,24 @@ Once the navmesh is sorted out, getting bots in seeding is very simple. Assuming
 
 ![SQSeedingBotSpawner](https://github.com/user-attachments/assets/2a9cdfd5-71fa-4f07-956f-eb2441a4adf6)
 
-You’ll want to place one for each team, near their team’s player spawn point. Ensure that they are within the navmesh, otherwise the bots will be immediately killed on spawn due to stuck detection. For seeding, you’ll only need to modify the TeamNum setting. Seeding bot spawners rely on the gamemode being set up correctly. If set up incorrectly, there’ll be logs explaining how to amend the layer.
+You’ll want to place one for each team, near their team’s player spawn point. Ensure that they are within the navmesh, otherwise the bots will be immediately killed on spawn due to stuck detection. For seeding, you’ll only need to modify the `TeamNum` setting. Seeding bot spawners rely on the gamemode being set up correctly. If set up incorrectly, there’ll be logs explaining how to amend the layer.
 
 ![SeedingBotSpawnerDetails](https://github.com/user-attachments/assets/42c77a5b-2b83-40ec-9fd9-ed3311a29a16)
 
 ## Seeding Bot Counts
 
-Seed bot counts are determined by the `SeedTargetPlayerCount (in the `BP\_GameStateSquad\_Seed`). This is read from the `ServerConfig/CustomOptions.cfg`. Here’s what is explained there:
+Seed bot counts are determined by the `SeedTargetPlayerCount` (in the `BP_GameStateSquad_Seed`). This is read from the `ServerConfig/CustomOptions.cfg`. Here’s what is explained there:
 
-`// Target player count for seeding. Bots will be used to fill the server up to this player count.  
-// Teams will be balanced so that both teams have an equal number of players+bots.  
-// With SeedTargetPlayerCount=40, this is what you'll see:  
-// On an empty-ish server            // On a more full server  
-// Team 1    3 players    17 bots        // Team 1    16 players    4 bots  
-// Team 2    5 players    15 bots        // Team 2    18 players    2 bots  
-// Bots will all be killed (and none will spawn) when the seed match is live.  
-\#SeedTargetPlayerCount=40`
+```
+// Target player count for seeding. Bots will be used to fill the server up to this player count.  
+// Teams will be balanced so that both teams have an equal number of players+bots.
+// With SeedTargetPlayerCount=40, this is what you'll see:
+// On an empty-ish server            // On a more full server
+// Team 1    3 players    17 bots        // Team 1    16 players    4 bots
+// Team 2    5 players    15 bots        // Team 2    18 players    2 bots
+// Bots will all be killed (and none will spawn) when the seed match is live.
+#SeedTargetPlayerCount=40
+```
 
 Note that the `SpawnerMaxBotCount` is unused for `SeedingBotSpawners`, it just uses the `SeedTargetPlayerCount`. This can be set at runtime using `AdminSetSeedTargetPlayerCount X`.
 
