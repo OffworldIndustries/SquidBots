@@ -39,7 +39,7 @@ When playing in a real game, with a client connected to a server, SquidBots bene
 
 When playing offline, \~50 bots would give you acceptable performance (50 bots concentrated around the player can feel more full than 100 players scattered around a 8x8km map).
 
-And when testing in editor, there’s lots of engine debug systems running in the background, again slowing down performance. I’d recommend lowering your bot counts in editor to whatever your pc can handle (for one of my PCs, that’s around 20, for another it’s around 40).
+And when testing in editor, there’s lots of engine debug systems running in the background, again slowing down performance. I’d recommend lowering your bot counts in editor to whatever your pc can handle (for one of my PCs, that’s around 20, for another it’s around 40). (If testing seed layers, use [`AdminSetSeedTargetPlayerCount 10`](https://github.com/OffworldIndustries/SquidBots/blob/main/README.md#seeding-bot-counts))
 
 # Navmeshes
 
