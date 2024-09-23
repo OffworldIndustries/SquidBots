@@ -76,7 +76,7 @@ When generating automatically, it’s advised that you disable the Navmesh Visua
 
 ## Navmesh Tuning
 
-Squad has project defaults defined for its navmeshes, tuned for the best results on the existing \~25 squad maps. If you want to manually tune these (which I wouldn’t recommend as it’s a rabbit hole), modify the navmesh settings in the generated `RecastNavMesh\_Default`.  
+Squad has project defaults defined for its navmeshes, tuned for the best results on the existing \~25 squad maps. If you want to manually tune these (which I wouldn’t recommend as it’s a rabbit hole), modify the navmesh settings in the generated `RecastNavMesh_Default`.  
 
 ![RecastNavMesh](https://github.com/user-attachments/assets/4fee79be-e6c5-46d2-9f19-8a4d3a42fcba)
 
@@ -92,7 +92,7 @@ There are WorldSettings related to AI (`Enable AISystem`, `NavigationSystemConfi
 
 ### Your Navmesh isn’t showing up?
 
-Oftentimes you might need to reload your world, or potentially restart your editor. Sometimes your navmesh can be entirely corrupted, so you may need to delete your existing `RecastNavMesh\_Default`, then force `RebuildNavigatio`n again. Sometimes that doesn't even work, so you may need to move your `NavMeshBoundsVolume`, or delete and replace your `NavMeshBoundsVolume`.
+Oftentimes you might need to reload your world, or potentially restart your editor. Sometimes your navmesh can be entirely corrupted, so you may need to delete your existing `RecastNavMesh_Default`, then force `RebuildNavigatio`n again. Sometimes that doesn't even work, so you may need to move your `NavMeshBoundsVolume`, or delete and replace your `NavMeshBoundsVolume`.
 
 ### Your Navmesh isn’t generating on the landscape?
 
