@@ -92,7 +92,7 @@ There are WorldSettings related to AI (“Enable AISystem”, “NavigationSyste
 
 ### Your Navmesh isn’t showing up?
 
-Oftentimes you might need to reload your world, or potentially restart your editor. Sometimes your navmesh can be entirely corrupted, so you may need to delete your existing RecastNavMesh\_Default, then force RebuildNavigation again.
+Oftentimes you might need to reload your world, or potentially restart your editor. Sometimes your navmesh can be entirely corrupted, so you may need to delete your existing RecastNavMesh\_Default, then force RebuildNavigation again. Sometimes that doesn't even work, so you may need to move your NavMeshBoundsVolume, or delete and replace your NavMeshBoundsVolume.
 
 ### Your Navmesh isn’t generating on the landscape?
 
