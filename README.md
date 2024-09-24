@@ -17,7 +17,9 @@ https://www.youtube.com/watch?v=jOxBIEK172I
 
 https://www.youtube.com/watch?v=wms8ZEtVQhg.
 
-The systems became large enough that I started messing around with having behaviour trees automatically keyframe soldiers, which grew to become advanced solider AI capable of playing Squad: SquidBots
+The systems became extensive enough that I started messing around with having systems to automaticallly keyframe soldiers: The first test of which was the [Squad Tower Defence mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2845442529). Next, I experimented with using behaviour trees and pathfinding to make complex solider AI. The final hurdle was redesigning the system to be replicated (supporting multiplayer), and with those hurdles completed came the first release of the [SquidBots mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2891780963). SquidBots is designed to be somewhat game-agnostic, and had been ported with ease to [Post Scriptum (now Squad44)](https://steamcommunity.com/sharedfiles/filedetails/?id=2909251852).
+
+SquidBots was acquired by Offworld, and has now been integrated into Squad's base game.
 
 # General Usage
 
