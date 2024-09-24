@@ -1,5 +1,5 @@
 # SquidBots
-Welcome to the SquidBots! SquidBots is a plug-in for Offworld games, distributed with Squad and the Squad Editor. Anyone can add to this documentation (just make a pull request).
+Welcome to SquidBots! SquidBots is a plug-in for Offworld games, distributed with Squad and the Squad Editor. Anyone can add to this documentation (just make a pull request).
 
 ## History
 
