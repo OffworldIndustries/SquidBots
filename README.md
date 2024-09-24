@@ -1,3 +1,5 @@
+<img src="https://github.com/OffworldIndustries/SquidBots/blob/main/SquidBots_Logo_Square.png" width="250">
+
 # SquidBots
 Welcome to SquidBots! SquidBots is a plug-in for Offworld games, distributed with Squad and the Squad Editor. Anyone can add to this documentation (just make a pull request).
 
@@ -5,17 +7,17 @@ Welcome to SquidBots! SquidBots is a plug-in for Offworld games, distributed wit
 
 SquidBots started off as a tool for making Squad videos. The existing workflow of pre-recording your Squad character in PIE and saving out the animation was too time consuming, so I set out to automate some of the processes. The systems created let you entirely keyframe a soldier:
 
-https://www.youtube.com/watch?v=Hsl5ra6ZXPk
+[Squad Animation System](https://www.youtube.com/watch?v=Hsl5ra6ZXPk)
 
-https://www.youtube.com/watch?v=bg5m2shm6u4
+[Keyframed Killhouse](https://www.youtube.com/watch?v=bg5m2shm6u4)
 
-https://www.youtube.com/watch?v=_tUPQV_SIwk.
+[Turrets Demo](https://www.youtube.com/watch?v=_tUPQV_SIwk)
 
 These allowed for the creation of videos like:
 
-https://www.youtube.com/watch?v=jOxBIEK172I
+[Welcome to Squad](https://www.youtube.com/watch?v=jOxBIEK172I)
 
-https://www.youtube.com/watch?v=wms8ZEtVQhg.
+[The Second Emu War](https://www.youtube.com/watch?v=wms8ZEtVQhg)
 
 The systems became extensive enough that I started messing around with having systems to automaticallly keyframe soldiers: The first test of which was the [Squad Tower Defence mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2845442529). Next, I experimented with using behaviour trees and pathfinding to make complex solider AI. The final hurdle was redesigning the system to be replicated (supporting multiplayer), and with those hurdles completed came the first release of the [SquidBots mod](https://steamcommunity.com/sharedfiles/filedetails/?id=2891780963). SquidBots is designed to be somewhat game-agnostic, and had been ported with ease to [Post Scriptum (now Squad44)](https://steamcommunity.com/sharedfiles/filedetails/?id=2909251852).
 
