@@ -143,10 +143,87 @@ Multiple seeding bot spawners can be placed per team, but the team will still be
 
 This is significant as Squad’s worlds are quite dynamic, with deployables, vehicles and wrecks affecting the game world and blocking once-available paths. The static navmeshes means that bots don’t know how to path around these objects, and will try to walk into them and get stuck. As a short term workaround (and legacy from the mod), bots stuck walking into deployables will automatically passively dig them down, until the deployable is destroyed or the bot is able to get unstuck. This is important to note in the seeding gamemode, as placing the seed bot spawners near fobs / habs can have gameplay consequences, due to the bots potentially getting stuck and digging these down.
 
+# SquidBot Fundamentals
+## Configurations
+SquidBots officially supports:
+* Singleplayer (standalone)
+* Multiplayer (replicated clients)
+* Editor scripting (level sequences)
+
+## Game-agnosticism
+On paper, SquidBot should be game agnostic and not depend on Squad functionality. This was an advantage of SquidBots as a mod not depending on a Squad base class, and we'd like to keep it that way. In practice, lots of Squad code and systems are used by SquidBots in Blueprint. No new code is being written depending on Squad (the plugin's C++ modules don't depend on Squad for example), so slowly as systems are refactored, the system should move towards being entirely game agnostic. Squad can depend on SquidBots, but SquidBot cannot depend on Squad.
+
+### `UODKSquidBotsProjectInterface`
+
+Some functionality SquidBots is looking for must be implemented for use in a project. Squad's implementation of this is `USQSquidBotsProjectImplementation`. Setting the `SquidBotsProjectImplementationClass` in the `ODKSquidBotsSettings` will assign the project its implementation class. SquidBots will manage the lifetime of a singleton of this class, then talk to it through the `UODKSquidBotsProjectInterface`.
+
+## SquidBot Class Hierachy
+* ACharacter: UE4 Engine base class, note that SquidBots does not use any SQ parent class.
+    * ODKAvatar: C++ Parent class, very minimal implementation details. Adds key functionality like Health, Seeded Random support. Slowly, more stable functionality and features needing to be optimised will be moved into this.
+        * SkeletalMeshPawn: A redundant legacy parent class that should be removed.
+            * KillableSkeletalMeshPawn: Adds custom logic for damaging. Historically was added for non-humanoid bots (Emus lol) but should be removed and damage logic refactored away.
+                * Avatar: The base class for any animation work. This was originally where 99% of the mod was developed, and contains most logic for the solider and their weapons.
+                    * SquadSoldier: Adds support for SquadRole parsing (not very project agnostic), and adds support for entering vehicles. Any cinematic work should be using SquadSoldiers as they contain no AI logic.
+                        * SquidBot: Adds all AI logic for soldier bots. SquadSoldiers can only be keyframed, but SquidBots can do complex behaviours and processing including scanning the world around them and automatically hunting down targets, following orders etc.
+                            * SQSquidBot: Squad implementation of SquidBot. Any Squad-specific details should be contained to SQSquidBot. For example, SQSquidBot adds any system interactions for the Squad map and nametag systems, and interactions with water. The optimal setup would be everything above this point would be project agnostic and squad then adds its defaults and overrides here.
+
+## Determinism and Seeds
+When SquidBots are used for creating cinematics, it's pivotal for creators to get the exact same results whenever they play their sequence. With that in mind, a requirement of SquidBots' systems is all actions should be deterministic and repeatable. SquidBots does use randoms, but a seeded random system. The SquidBot has a `Seed` variable defined. Whenever a random is needed for initialisation of a bot, the seed is used for random number generation. Whenever a continuous series of random numbers is needed, `UODKSequencerHelpers::GetRandomSeedAtFrame` should be used. This will hook up to any existing level sequences to ensure that the seed is the same at that frame every time the sequence is played.
+
+> Tip: SquidBots have a function on them to force randomise the seed. Selecting multiple bots and running this event will give them all different random seeds.
+>
+> ![Force Randomise Seed](https://github.com/user-attachments/assets/07a76a68-45ed-4071-ad85-e42045f58eb6)
+
+## Items
+Weapons and Items (all inheriting from `GenericItem`) are designed to exist both owned by a bot and by themselves. `SQWeapon` does not support this functionality, and this can be used to make simple weapon sentries or test weapon firing functionality without a bot
+
+## Event Construct
+SquidBots and Items both use a function called `Event Construct` to do most of their initialisation logic. This gets run at either construction time or beginplay, depending on the when the bot is spawned.
+
+## Teams
+SquidBots are not constrained to just Team 1 or Team 2. SquidBots have a team number that can be set to any integer. Bots will view any other entities that are not on their team as their enemy.
+
 # Spawning Bots
+Bots can be preplaced in the editor. Drag-and-drop a `SQSquidBBot` into the world.
+
+![Place SQSquidBots](https://github.com/user-attachments/assets/3a02e62e-8ada-47b6-bc51-7a5bf54045fe)
+
+There are a **lot** of settings configurable on the SquidBot details view, but all you need to search for to get a spawned bot in the scene is the `SquadRole`
+
+![SquadRole](https://github.com/user-attachments/assets/ba3acbc4-fe9b-4702-a1c8-28f66e1cb622)
+
+Set the `BP_SQFactionSetup` and `BP_SQRoleSettings` to the faction and role you want the bot to use. Optionally, you can use a random role (enable `Use Random Role`, which will choose a random role from the faction setups you provide in the `RandomRoleSettings.FactionSetups` array. The random role system also lets you filter for roles with specific tags or using specific weapons. Tags work that for a role to pass the filter, all of its tags must be in the `RandomRoleSettings.Tags` array. You may want to also set the `Seed` and the `TeamNum`.
+
+## Using Spawners
+TODO: Improve spawner systems and documentation.
+
+Currently the only spawner that works out of the box for SquidBots is the [`SQSeedingBotSpawner`](https://github.com/OffworldIndustries/SquidBots/edit/main/README.md#adding-bots-to-seeding-layers).
+
+## Manually Spawning Bots at Runtime
+As a designer, the 2 most important API calls you have are spawning bots and giving them orders. Once you get to grips with those systems, the world is your oyster. To Spawn a bot, use the Blueprint SpawnActor node, and select a SQSquidBot class. Parameters will be explained elsewhere in this document, so I would recommend at this point usign `ctrl+f`.
+![SpawnActor SQSquidBot](https://github.com/user-attachments/assets/039c15e5-3d73-40d5-9c1d-a8a228fcef4f)
 
 # Order System
+## Giving Orders
+
+## Creating Orders
 
 # Bot Behaviour
+## Senses
+### Sight
+
+### Sound
+
+### Communication
+
+## Patrol (Follow Order)
+
+## Search
+
+## Combat
+
+## Reload
+
+## Flee to Cover
 
 # Bots for Cinematics
