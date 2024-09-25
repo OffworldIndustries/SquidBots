@@ -184,7 +184,7 @@ SquidBots and Items both use a function called `Event Construct` to do most of t
 SquidBots are not constrained to just Team 1 or Team 2. SquidBots have a team number that can be set to any integer. Bots will view any other entities that are not on their team as their enemy.
 
 # Spawning Bots
-Bots can be preplaced in the editor. Drag-and-drop a `SQSquidBBot` into the world.
+Bots can be preplaced in the editor. Drag-and-drop a `SQSquidBot` into the world.
 
 ![Place SQSquidBots](https://github.com/user-attachments/assets/3a02e62e-8ada-47b6-bc51-7a5bf54045fe)
 
