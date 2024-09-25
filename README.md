@@ -201,6 +201,7 @@ Currently the only spawner that works out of the box for SquidBots is the [`SQSe
 
 ## Manually Spawning Bots at Runtime
 As a designer, the 2 most important API calls you have are spawning bots and giving them orders. Once you get to grips with those systems, the world is your oyster. To Spawn a bot, use the Blueprint SpawnActor node, and select a SQSquidBot class. Parameters will be explained elsewhere in this document, so I would recommend at this point usign `ctrl+f`.
+
 ![SpawnActor SQSquidBot](https://github.com/user-attachments/assets/039c15e5-3d73-40d5-9c1d-a8a228fcef4f)
 
 # Order System
