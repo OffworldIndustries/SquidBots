@@ -159,7 +159,7 @@ Some functionality SquidBots is looking for must be implemented for use in a pro
 
 ## SquidBot Class Hierachy
 * `ACharacter`: UE4 Engine base class, note that SquidBots does not use any SQ parent class.
-    * `ODKAvatar`: C++ Parent class, very minimal implementation details. Adds key functionality like Health, Seeded Random support. Slowly, more stable functionality and features needing to be optimised will be moved into this.
+    * `UODKAvatar`: C++ Parent class, very minimal implementation details. Adds key functionality like Health, Seeded Random support. Slowly, more stable functionality and features needing to be optimised will be moved into this.
         * `SkeletalMeshPawn`: A redundant legacy parent class that should be removed.
             * `KillableSkeletalMeshPawn`: Adds custom logic for damaging. Historically was added for non-humanoid bots (Emus lol) but should be removed and damage logic refactored away.
                 * `Avatar`: The base class for any animation work. This was originally where 99% of the mod was developed, and contains most logic for the solider and their weapons.
